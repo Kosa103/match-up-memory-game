@@ -4,14 +4,9 @@ import StatusBar from "./StatusBar";
 import Card from "./Card";
 
 
-export default function Board({ deckSize }) {
+export default function Board({ deck }) {
     function renderBoard() {
-        const deckRepresentative = [];
-        for (let i = 0; i< deckSize; i++) {
-            deckRepresentative.push(i);
-        }
-
-        const board = deckRepresentative.map(key => <Card key={`key-${key}`}/>);
+        const board = deck.map(card => <Card key={`key-${card.id}`} card={card}/>);
         return board;
     }
 

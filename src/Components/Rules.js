@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 
-export default function Rules() {
+export default function Rules({ startNewGame }) {
+    const deckSizeInput = React.useRef(null);
+
     function renderOptions() {
         const deckSizes = [6, 8, 10, 12, 14, 16, 18, 20];
         const option = deckSizes.map(size => {
-            return (size === 20) ?
-            <option key={`deck-${size}`} value={size} defaultValue>{size}</option> :
-            <option key={`deck-${size}`} value={size}>{size}</option>
+            return <option key={`deck-${size}`} value={size}>{size}</option>;
         });
         return option;
     }
@@ -21,10 +21,11 @@ export default function Rules() {
             <div className="description-div">
                 <h2>Match Up Memory Game</h2>
                 <p>Deck Size</p>
-                <select className="deck-size-selector">
+                <select className="deck-size-selector" ref={deckSizeInput}>
                     {renderOptions()}
                 </select>
-                <Link to="/game">PLAY!</Link>
+                <Link to="/game" onClick={() => startNewGame(deckSizeInput.current.value)}>START NEW GAME</Link>
+                <Link to="/game">RETURN TO GAME</Link>
                 <h2>Rules</h2>
                 <p>{`This is a basic memory game with simple rules.`}</p>
                 <p>
