@@ -31,8 +31,10 @@ function App() {
     return shuffle(Array(deckSize.current).fill(null).map((elem, index) => {
       const card = {
         id: index + 1,
+        type: Math.ceil((index + 1) / 2),
         image: cardImages[Math.ceil((index + 1) / 2)],
-        facedownImage: card0
+        facedownImage: card0,
+        state: "facedown"
       };
       return card;
     }));
@@ -43,6 +45,7 @@ function App() {
     const realDeck = Array(deckSize.current).fill(null).map((elem, index) => {
       const card = {
         id: index + 1,
+        type: Math.ceil((index + 1) / 2),
         image: cardImages[Math.ceil((index + 1) / 2)],
         facedownImage: cardImages[0],
         state: "facedown"
