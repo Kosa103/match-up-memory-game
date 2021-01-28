@@ -26,9 +26,9 @@ import card10 from "./images/card10.png";
 function App() {
   const cardImages = [card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10];
 
-  const [deckSize, setDeckSize] = React.useState(6);
+  const [deckSize, setDeckSize] = React.useState({ current: 6 });
   const [deck, setDeck] = React.useState(() => {
-    return shuffle(Array(deckSize).fill(null).map((elem, index) => {
+    return shuffle(Array(deckSize.current).fill(null).map((elem, index) => {
       const card = {
         id: index + 1,
         image: cardImages[Math.ceil((index + 1) / 2)],
@@ -40,11 +40,12 @@ function App() {
 
 
   function buildDeck() {
-    const realDeck = Array(deckSize).fill(null).map((elem, index) => {
+    const realDeck = Array(deckSize.current).fill(null).map((elem, index) => {
       const card = {
         id: index + 1,
         image: cardImages[Math.ceil((index + 1) / 2)],
-        facedownImage: cardImages[0]
+        facedownImage: cardImages[0],
+        state: "facedown"
       };
       return card;
     });
@@ -77,8 +78,8 @@ function App() {
       <div className="main-div">
         <Switch>
           <Redirect from="/" to="/rules" exact strict />
-          <Route path="/rules" exact strict render={() => <Rules startNewGame={size => setDeckSize(Number(size))}/>} />
-          <Route path="/game" exact strict render={() => <Game deck={deck} startNewGame={size => setDeckSize(Number(size))}/>} />
+          <Route path="/rules" exact strict render={() => <Rules startNewGame={size => setDeckSize({ current: Number(size) })}/>} />
+          <Route path="/game" exact strict render={() => <Game deck={deck} startNewGame={size => setDeckSize({ current: Number(size) })}/>} />
         </Switch>
       </div>
     </Router>
