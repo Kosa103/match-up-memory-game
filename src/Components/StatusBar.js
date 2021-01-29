@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function StatusBar({ currentTries, bestGame }) {
+export default function StatusBar({ currentTries, bestGame, restartCommand }) {
     return(
         <div className="status-bar-div">
             <div className="current-tries status">
@@ -12,7 +12,7 @@ export default function StatusBar({ currentTries, bestGame }) {
                 <p>{bestGame}</p>
             </div>
             <div className="restart-game status">
-                <button className="restart-button">RESTART</button>
+                <button className="restart-button" onClick={() => restartCommand()}>RESTART</button>
             </div>
         </div>
     );

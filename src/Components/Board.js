@@ -5,7 +5,7 @@ import Card from "./Card";
 
 
 // includes main game logic
-export default function Board({ deck }) {
+export default function Board({ deck, restartGame }) {
     const cardStates = {
         facedown: "facedown",
         revealed: "revealed",
@@ -106,6 +106,10 @@ export default function Board({ deck }) {
         sessionStorage.setItem("matchUpSaveGame", JSON.stringify(gameState));
     }
 
+    function restartCommand() {
+        restartGame(liveDeck.length);
+    }
+
     function renderBoard() {
         const board = liveDeck.map(card =>
             <Card
@@ -167,7 +171,7 @@ export default function Board({ deck }) {
 
     return (
         <div className="board-extended-div">
-            <StatusBar currentTries={currentTries} bestGame={bestGame} />
+            <StatusBar currentTries={currentTries} bestGame={bestGame} restartCommand={() => restartCommand()} />
             <div className="board-div">
                 {renderBoard()}
             </div>

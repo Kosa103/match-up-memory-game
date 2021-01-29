@@ -96,11 +96,15 @@ function App() {
           />
           <Route path="/game" exact strict render={() => 
             <Game 
-              deck={deck} 
+              deck={deck}
               startNewGame={size => {
                 sessionStorage.removeItem("matchUpSaveGame");
                 return setDeckSize({ current: Number(size) });
               } } 
+              restartGame={size => {
+                sessionStorage.removeItem("matchUpSaveGame");
+                return setDeckSize({ current: Number(size) });
+              }}
             />} 
           />
         </Switch>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Board from "./Board";
 
 
-export default function Game({ deck, startNewGame }) {
+export default function Game({ deck, startNewGame, restartGame }) {
     const deckSizeInput = React.useRef(null);
 
     function renderOptions() {
@@ -25,7 +25,7 @@ export default function Game({ deck, startNewGame }) {
                 <button className="menu-button button" onClick={() => startNewGame(deckSizeInput.current.value)}>Start New Game</button>
                 <Link to="/rules">Read rules</Link>
             </div>
-            <Board deck={deck}/>
+            <Board deck={deck} restartGame={restartGame}/>
         </div>
     );
 }
