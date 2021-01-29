@@ -9,6 +9,7 @@ import './App.css';
 
 import Rules from "./Components/Rules";
 import Game from "./Components/Game";
+import useFirstRender from "./CustomHooks/useFirstRender";
 
 import card0 from "./images/card0.png";
 import card1 from "./images/card1.png";
@@ -40,6 +41,8 @@ function App() {
     }));
   });
 
+  const firstRender = useFirstRender();
+
 
   function buildDeck() {
     const realDeck = Array(deckSize.current).fill(null).map((elem, index) => {
@@ -47,7 +50,7 @@ function App() {
         id: index + 1,
         type: Math.ceil((index + 1) / 2),
         image: cardImages[Math.ceil((index + 1) / 2)],
-        facedownImage: cardImages[0],
+        facedownImage: card0,
         state: "facedown"
       };
       return card;
@@ -55,25 +58,27 @@ function App() {
     setDeck(shuffle(realDeck));
   }
 
-  function shuffle(arr) {
-    function replaceCard(array, from, to) {
-      const card = array.splice(from, 1);
-      array.splice(to, 0, card[0]);
-      return array;
+  function shuffle(cards) {
+    function replaceCard(tempDeck, from, to) {
+      const card = tempDeck.splice(from, 1);
+      tempDeck.splice(to, 0, card[0]);
+      return tempDeck;
     };
 
-    const length = arr.length;
-    let tempArr = arr;
+    const length = cards.length;
+    let tempCards = cards;
     for (let i = 0; i < length * 2; i++) {
       const random1 = Math.floor(Math.random() * length);
       const random2 = Math.floor(Math.random() * length);
-      tempArr = replaceCard(tempArr, random1, random2);
+      tempCards = replaceCard(tempCards, random1, random2);
     }
-    return tempArr;
+    return tempCards;
   };
 
   React.useEffect(() => {
-    buildDeck();
+    if (!firstRender) {
+      buildDeck();
+    }
   }, [deckSize]);
 
   return (
@@ -81,8 +86,23 @@ function App() {
       <div className="main-div">
         <Switch>
           <Redirect from="/" to="/rules" exact strict />
-          <Route path="/rules" exact strict render={() => <Rules startNewGame={size => setDeckSize({ current: Number(size) })}/>} />
-          <Route path="/game" exact strict render={() => <Game deck={deck} startNewGame={size => setDeckSize({ current: Number(size) })}/>} />
+          <Route path="/rules" exact strict render={() => 
+            <Rules 
+              startNewGame={ size => {
+                sessionStorage.removeItem("matchUpSaveGame");
+                return setDeckSize({ current: Number(size) });
+              } } 
+            />} 
+          />
+          <Route path="/game" exact strict render={() => 
+            <Game 
+              deck={deck} 
+              startNewGame={size => {
+                sessionStorage.removeItem("matchUpSaveGame");
+                return setDeckSize({ current: Number(size) });
+              } } 
+            />} 
+          />
         </Switch>
       </div>
     </Router>

@@ -47,6 +47,7 @@ export default function Board({ deck }) {
             for (const card of newDeck) {
                 if (card.state === cardStates.revealed) {
                     card.state = cardStates.facedown;
+                    saveGameState(newDeck, [], victory, currentTries, bestGame);
                     setLiveDeck(newDeck);
                     setRevealedCards([]);
                 }
@@ -74,21 +75,35 @@ export default function Board({ deck }) {
                             if (gameOver) {
                                 setVictory(true);
                             }
+                            saveGameState(newDeck, [], gameOver ? true : false, currentTries + 1, bestGame);
                             setLiveDeck(newDeck);
                             setRevealedCards([]);
                             setCurrentTries(currentTries + 1);
                         } else {
+                            saveGameState(newDeck, newRevealedCards, victory, currentTries + 1, bestGame);
                             setLiveDeck(newDeck);
                             setRevealedCards(newRevealedCards);
                             setCurrentTries(currentTries + 1);
                         }
                     } else {
+                        saveGameState(newDeck, newRevealedCards, victory, currentTries, bestGame);
                         setLiveDeck(newDeck);
                         setRevealedCards(newRevealedCards);
                     }
                 }
             }
         }
+    }
+
+    function saveGameState(currentDeck, currentRevealedCards, currentVictory, currentSavedTries, currentBestGame) {
+        const gameState = {
+            liveDeck: currentDeck,
+            revealedCards: currentRevealedCards,
+            victory: currentVictory,
+            currentTries: currentSavedTries,
+            bestGame: currentBestGame
+        };
+        sessionStorage.setItem("matchUpSaveGame", JSON.stringify(gameState));
     }
 
     function renderBoard() {
@@ -137,6 +152,18 @@ export default function Board({ deck }) {
             }
         }
     }, [victory]);
+
+    React.useEffect(() => {
+        const saveGame = sessionStorage.getItem("matchUpSaveGame");
+        if (saveGame) {
+            const parsedSaveGame = JSON.parse(saveGame);
+            setLiveDeck(parsedSaveGame.liveDeck);
+            setRevealedCards(parsedSaveGame.revealedCards);
+            setVictory(parsedSaveGame.victory);
+            setCurrentTries(parsedSaveGame.currentTries);
+            setBestGame(parsedSaveGame.bestGame);
+        }
+    }, []);
 
     return (
         <div className="board-extended-div">
