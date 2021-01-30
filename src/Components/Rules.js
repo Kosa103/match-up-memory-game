@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import evistaLogo from "../images/evistaLogo.png";
+
 
 export default function Rules({ startNewGame }) {
     const deckSizeInput = React.useRef(null);
@@ -18,7 +20,13 @@ export default function Rules({ startNewGame }) {
     return (
         <div className="rules-div content">
             <div className="menu-div">
-
+                <div className="menu-left-div">
+                    <img 
+                        src={evistaLogo}
+                        alt="evistaLogo"
+                        className="evista-logo"
+                    />
+                </div>
             </div>
             <div className="description-div">
                 <div>

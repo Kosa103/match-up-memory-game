@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 import Board from "./Board";
 
+import evistaLogo from "../images/evistaLogo.png";
+
 
 export default function Game({ deck, startNewGame, restartGame }) {
     const history = useHistory();
@@ -19,29 +21,45 @@ export default function Game({ deck, startNewGame, restartGame }) {
     return (
         <div className="game-div content">
             <div className="menu-div">
-                <div className="menu-element-div">
-                    <p className="info-text">Deck Size:</p>
+                <div className="menu-left-div">
+                    <img
+                        src={evistaLogo}
+                        alt="evistaLogo"
+                        className="evista-logo"
+                    />
                 </div>
-                <div className="menu-element-div">
-                    <select className="deck-size-selector" ref={deckSizeInput}>
-                        {renderOptions()}
-                    </select>
+                <div className="menu-center-div">
+                    <div className="menu-element-div">
+                        <p className="info-text">Deck Size:</p>
+                    </div>
+                    <div className="menu-element-div">
+                        <select className="deck-size-selector" ref={deckSizeInput}>
+                            {renderOptions()}
+                        </select>
+                    </div>
+                    <div className="menu-element-div">
+                        <button 
+                            className="menu-button button" 
+                            onClick={() => startNewGame(deckSizeInput.current.value)}
+                        >
+                            START NEW GAME
+                        </button>
+                    </div>
+                    <div className="menu-element-div">
+                        <button 
+                            onClick={() => history.push("/rules")} 
+                            className="link-button button"
+                        >
+                            READ RULES
+                        </button>
+                    </div>
                 </div>
-                <div className="menu-element-div">
-                    <button 
-                        className="menu-button button" 
-                        onClick={() => startNewGame(deckSizeInput.current.value)}
-                    >
-                        START NEW GAME
-                    </button>
-                </div>
-                <div className="menu-element-div">
-                    <button 
-                        onClick={() => history.push("/rules")} 
-                        className="link-button button"
-                    >
-                        READ RULES
-                    </button>
+                <div className="menu-right-div">
+                    <img 
+                        src={evistaLogo}
+                        alt="evistaLogo"
+                        className="evista-logo-hidden"
+                    />
                 </div>
             </div>
             <Board deck={deck} restartGame={restartGame}/>
