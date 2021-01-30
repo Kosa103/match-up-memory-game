@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Board from "./Board";
 
 
 export default function Game({ deck, startNewGame, restartGame }) {
+    const history = useHistory();
     const deckSizeInput = React.useRef(null);
 
     function renderOptions() {
@@ -18,12 +19,30 @@ export default function Game({ deck, startNewGame, restartGame }) {
     return (
         <div className="game-div content">
             <div className="menu-div">
-                <p>Deck Size</p>
-                <select className="deck-size-selector" ref={deckSizeInput}>
-                    {renderOptions()}
-                </select>
-                <button className="menu-button button" onClick={() => startNewGame(deckSizeInput.current.value)}>Start New Game</button>
-                <Link to="/rules">Read rules</Link>
+                <div className="menu-element-div">
+                    <p className="info-text">Deck Size:</p>
+                </div>
+                <div className="menu-element-div">
+                    <select className="deck-size-selector" ref={deckSizeInput}>
+                        {renderOptions()}
+                    </select>
+                </div>
+                <div className="menu-element-div">
+                    <button 
+                        className="menu-button button" 
+                        onClick={() => startNewGame(deckSizeInput.current.value)}
+                    >
+                        START NEW GAME
+                    </button>
+                </div>
+                <div className="menu-element-div">
+                    <button 
+                        onClick={() => history.push("/rules")} 
+                        className="link-button button"
+                    >
+                        READ RULES
+                    </button>
+                </div>
             </div>
             <Board deck={deck} restartGame={restartGame}/>
         </div>

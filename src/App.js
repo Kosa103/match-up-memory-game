@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Redirect,
   Route,
-  Switch
+  Switch,
+  useHistory
 } from 'react-router-dom';
 import './App.css';
 
 import Rules from "./Components/Rules";
 import Game from "./Components/Game";
-import useFirstRender from "./CustomHooks/useFirstRender";
+import useFirstChange from "./CustomHooks/useFirstChange";
 
 import card0 from "./images/card0.png";
 import card1 from "./images/card1.png";
@@ -41,7 +41,8 @@ function App() {
     }));
   });
 
-  const firstRender = useFirstRender();
+  const firstChange = useFirstChange();
+  const history = useHistory();
 
 
   function buildDeck() {
@@ -75,41 +76,41 @@ function App() {
     return tempCards;
   };
 
+  function startNewGameRedirect(size, newPath) {
+    sessionStorage.removeItem("matchUpSaveGame");
+    history.push(newPath);
+    setDeckSize({ current: Number(size) });
+  }
+
+  function startNewGame(size) {
+    sessionStorage.removeItem("matchUpSaveGame");
+    setDeckSize({ current: Number(size) });
+  }
+
   React.useEffect(() => {
-    if (!firstRender) {
+    if (!firstChange) {
       buildDeck();
     }
   }, [deckSize]);
 
   return (
-    <Router>
-      <div className="main-div">
-        <Switch>
-          <Redirect from="/" to="/rules" exact strict />
-          <Route path="/rules" exact strict render={() => 
-            <Rules 
-              startNewGame={ size => {
-                sessionStorage.removeItem("matchUpSaveGame");
-                return setDeckSize({ current: Number(size) });
-              } } 
-            />} 
-          />
-          <Route path="/game" exact strict render={() => 
-            <Game 
-              deck={deck}
-              startNewGame={size => {
-                sessionStorage.removeItem("matchUpSaveGame");
-                return setDeckSize({ current: Number(size) });
-              } } 
-              restartGame={size => {
-                sessionStorage.removeItem("matchUpSaveGame");
-                return setDeckSize({ current: Number(size) });
-              }}
-            />} 
-          />
-        </Switch>
-      </div>
-    </Router>
+    <div className="main-div">
+      <Switch>
+        <Redirect from="/" to="/rules" exact strict />
+        <Route path="/rules" exact strict render={() => 
+          <Rules 
+            startNewGame={(size, newPath) => startNewGameRedirect(size, newPath)} 
+          />} 
+        />
+        <Route path="/game" exact strict render={() => 
+          <Game 
+            deck={deck}
+            startNewGame={size => startNewGame(size)} 
+            restartGame={size => startNewGame(size)}
+          />} 
+        />
+      </Switch>
+    </div>
   );
 }
 

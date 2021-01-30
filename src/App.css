@@ -1,15 +1,35 @@
-body {
-  text-align: center;
+:root {
+  --color-black: rgb(0, 0, 0);
+  --color-light-grey: rgb(230, 230, 230);
+  --color-grey: rgb(100, 100, 100);
+  --color-white: rgb(255, 255, 255);
+  --color-orange: rgb(255, 60, 0);
+  --color-red-orange: rgb(255, 15, 0);
+  --color-transparent-50: rgba(255, 255, 255, 0.5);
+  --color-transparent-100: rgba(255, 255, 255, 0);
 }
 
-div {
-  border: 1px solid black;
+body {
+  text-align: center;
+  font-family: Verdana, sans-serif;
+  background-image: url('./images/marble.png');
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
+
+/* div {
+  border: 1px solid green;
+} */
 
 .menu-div {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  height: 3.5em;
+  background-color: var(--color-black);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .rules-div {
@@ -18,9 +38,76 @@ div {
   flex-direction: column;
 }
 
-.board-extended-div {
+.description-div {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
   width: 1000px;
   margin: auto;
+}
+
+.title {
+  color: var(--color-black);
+  font-weight: normal;
+}
+
+.deck-size-selector {
+  font-size: 1em;
+  padding: 10px 17px;
+  margin: 5px;
+}
+
+.button {
+  flex: none;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: bolder;
+  color: var(--color-white);
+  background-color: var(--color-orange);
+  border: 2px solid var(--color-orange);
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 7px;
+  transition-duration: 100ms;
+  transition-property: background-color;
+}
+
+.button:hover,
+.button:active {
+  cursor: pointer;
+  border-color: var(--color-red-orange);
+  background-color: var(--color-red-orange);
+}
+
+.restart-button {
+  color: var(--color-black);
+  border-color: var(--color-black);
+  background-color: var(--color-transparent-100);
+  font-weight: bold;
+}
+
+.restart-button:hover,
+.restart-button:active {
+  cursor: pointer;
+  background-color: var(--color-light-grey);
+  border-color: inherit;
+}
+
+.board-extended-div {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.menu-element-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-text {
+  font-size: 0.75em;
+  font-weight: bold;
+  color: var(--color-grey);
 }
 
 .board-div {
@@ -35,10 +122,24 @@ div {
   flex-direction: row;
 }
 
-.card-visible {
-  height: 160px;
-  width: 160px;
+.current-tries {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restart-game-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  height: 150px;
+  width: 150px;
   border-radius: 7px;
+  background-color: var(--color-white);
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
@@ -46,7 +147,46 @@ div {
   align-items: center;
 }
 
+.card:hover,
+.card:active {
+  cursor: pointer;
+}
+
+.card-found {
+  box-shadow: none;
+  background-color: var(--color-transparent-100);
+}
+
+.card-found:hover,
+.card-found:active {
+  cursor: auto;
+}
+
 .card-image {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
+}
+
+.card-image-found {
+  opacity: 0.5;
+}
+
+#rules-main-title {
+  margin: 4em 0 1.5em;
+  font-size: 2em;
+}
+
+#deck-size-text {
+  font-size: 0.75em;
+  font-weight: bolder;
+}
+
+#current-tries-value {
+  color: var(--color-black);
+  font-weight: bolder;
+}
+
+#best-game-number {
+  font-size: 1.8em;
+  margin: 0 0 0.5em;
 }
