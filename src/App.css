@@ -5,7 +5,6 @@
   --color-white: rgb(255, 255, 255);
   --color-orange: rgb(255, 60, 0);
   --color-red-orange: rgb(255, 15, 0);
-  --color-transparent-50: rgba(255, 255, 255, 0.5);
   --color-transparent-100: rgba(255, 255, 255, 0);
 }
 
@@ -164,32 +163,65 @@ body {
   align-items: center;
 }
 
-.card {
+/* --------------- cards ----------------*/
+
+.card-container {
   height: 150px;
   width: 150px;
+  margin: 10px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+.card-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
   border-radius: 7px;
   background-color: var(--color-white);
-  margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.card:hover,
-.card:active {
+.card-face:hover,
+.card-face:active {
   cursor: pointer;
 }
 
-.card-found {
+.card-face-back {
+  transform: rotateY(180deg);
+}
+
+.card-face-found {
   box-shadow: none;
   background-color: var(--color-transparent-100);
 }
 
-.card-found:hover,
-.card-found:active {
+.card-face-found:hover,
+.card-face-found:active {
   cursor: auto;
 }
+
+.card-face-front-found {
+  box-shadow: none;
+}
+
+/* --------------- cards end ----------------*/
 
 .card-image {
   height: 90px;
@@ -222,27 +254,21 @@ body {
 
 @media only screen and (max-width: 900px) {
   .menu-center-div {
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .menu-right-div {
     display: none;
   }
   
-  .card {
+  .card-container {
     height: 100px;
     width: 100px;
-    border-radius: 5px;
     margin: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
-  .card-found {
-    box-shadow: none;
-    background-color: var(--color-transparent-100);
+  .card-face {
+    border-radius: 5px;
   }
 
   .card-image {
@@ -268,7 +294,6 @@ body {
   .menu-right-div {
     display: none;
   }
-
   
   .deck-size-selector {
     font-size: 0.9em;
@@ -286,11 +311,14 @@ body {
     margin: 7px;
   }
 
-  .card {
+  .card-container {
     height: 70px;
     width: 70px;
-    border-radius: 4px;
     margin: 6px;
+  }
+
+  .card-face {
+    border-radius: 4px;
   }
 
   .card-image {

@@ -18,6 +18,10 @@ export default function Game({ deck, startNewGame, restartGame }) {
         return option;
     }
 
+    React.useEffect(() => {
+        deckSizeInput.current.value = deck.length;
+    }, [deck]);
+
     return (
         <div className="game-div content">
             <div className="menu-div">
