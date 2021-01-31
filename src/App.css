@@ -19,15 +19,10 @@ body {
   background-size: cover;
 }
 
-/* div {
-  border: 1px solid green;
-} */
-
 .menu-div {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  height: 3.5em;
   background-color: var(--color-black);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -53,7 +48,7 @@ body {
 .evista-logo {
   height: 3em;
   width: auto;
-  margin: 0em 1em;
+  margin: 0.3em 1em;
 }
 
 .evista-logo-hidden {
@@ -73,7 +68,7 @@ body {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  width: 880px;
+  max-width: 880px;
   margin: auto;
 }
 
@@ -93,7 +88,6 @@ body {
 }
 
 .button {
-  flex: none;
   display: inline-block;
   font-size: 1em;
   font-weight: bolder;
@@ -224,4 +218,83 @@ body {
 #best-game-number {
   font-size: 1.8em;
   margin: 0 0 0.5em;
+}
+
+@media only screen and (max-width: 900px) {
+  .menu-center-div {
+    justify-content: end;
+  }
+
+  .menu-right-div {
+    display: none;
+  }
+  
+  .card {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    margin: 7px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-found {
+    box-shadow: none;
+    background-color: var(--color-transparent-100);
+  }
+
+  .card-image {
+    height: 75px;
+    width: 75px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .menu-div {
+    flex-direction: column;
+  }
+
+  .menu-left-div {
+    justify-content: center;
+    border-bottom: 5px solid var(--color-light-grey);
+  }
+
+  .menu-center-div {
+    flex-direction: column;
+  }
+
+  .menu-right-div {
+    display: none;
+  }
+
+  
+  .deck-size-selector {
+    font-size: 0.9em;
+    padding: 9px 15px;
+    margin: 4px;
+  }
+
+  .button {
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bolder;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 9px 18px;
+    margin: 7px;
+  }
+
+  .card {
+    height: 70px;
+    width: 70px;
+    border-radius: 4px;
+    margin: 6px;
+  }
+
+  .card-image {
+    height: 55px;
+    width: 55px;
+  }
 }

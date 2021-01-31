@@ -36,7 +36,7 @@ export default function Rules({ startNewGame }) {
                     <p id="deck-size-text">Deck Size</p>
                 </div>
                 <div>
-                    <select className="deck-size-selector" ref={deckSizeInput}>
+                    <select defaultValue={12} className="deck-size-selector" ref={deckSizeInput}>
                         {renderOptions()}
                     </select>
                 </div>

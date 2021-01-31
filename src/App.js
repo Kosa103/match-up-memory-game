@@ -27,7 +27,7 @@ import card10 from "./images/card10.png";
 function App() {
   const cardImages = [card0, card1, card2, card3, card4, card5, card6, card7, card8, card9, card10];
 
-  const [deckSize, setDeckSize] = React.useState({ current: 6 });
+  const [deckSize, setDeckSize] = React.useState({ current: 12 });
   const [deck, setDeck] = React.useState(() => {
     return shuffle(Array(deckSize.current).fill(null).map((elem, index) => {
       const card = {

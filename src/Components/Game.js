@@ -33,7 +33,7 @@ export default function Game({ deck, startNewGame, restartGame }) {
                         <p className="info-text">Deck Size:</p>
                     </div>
                     <div className="menu-element-div">
-                        <select className="deck-size-selector" ref={deckSizeInput}>
+                        <select defaultValue={12} className="deck-size-selector" ref={deckSizeInput}>
                             {renderOptions()}
                         </select>
                     </div>
